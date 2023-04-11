@@ -1,10 +1,10 @@
 <template>
     <li>
-        <h2>{{friend.name}}</h2>
+        <h2>{{fullName}}</h2>
         <button @click="toggleDetails">Show Details</button>
         <ul v-if="detailsAreVisible">
-            <li><strong>Phone: </strong>{{ friend.phone}}</li>
-            <li><strong>Email: </strong>{{ friend.email}}</li>
+            <li><strong>Phone: </strong>{{ phoneNumber}}</li>
+            <li><strong>Email: </strong>{{ emailAddress}}</li>
         </ul>
     </li>
 
@@ -14,6 +14,12 @@
 
 <script>
 export default {
+  // props should have same name as data props
+  props:[
+    'fullName',
+    'phoneNumber',
+    'emailAddress'    
+    ],
     data() {
       return {
         detailsAreVisible:false,

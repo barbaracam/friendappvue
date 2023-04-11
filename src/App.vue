@@ -4,8 +4,16 @@
       <h1>My friends</h1>
     </header>
     <ul>
-      <friend-contact></friend-contact>
-      <friend-contact></friend-contact>
+      <friend-contact
+       full-name="Maria"
+       phone-number="0000"
+       email-address="maria_1@yahoo.ca"
+      
+      ></friend-contact>
+      <friend-contact
+        full-name="Suzyta"
+       phone-number="11111"
+       email-address="sonita@hotmail.ca"></friend-contact>
     </ul>
   </section>
 </template>
@@ -22,10 +30,10 @@ export default {
           email: "cam@yahoo.com",
         },
         {
-          id: "Gordis",
-          name: "Sam",
-          lastname: "Biden",
-          email: "sam@hotmail.com",
+          id: "Glady",
+          name: "Gladys",
+          lastname: "Perez",
+          email: "glady@hotmail.com",
         },
       ],
     };
