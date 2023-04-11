@@ -5,15 +5,14 @@
     </header>
     <ul>
       <friend-contact
-       full-name="Maria"
-       phone-number="0000"
-       email-address="maria_1@yahoo.ca"
-      
+      v-for="friend in friends" :key="friend.id" :id="friend.id"
+       :full-name="friend.name"
+       :phone-number="friend.phone"
+       :email-address="friend.email"
+       :is-favorite="friend.isFavorite"
+       @toggle-favorite="toggleFavoriteStatus"      
       ></friend-contact>
-      <friend-contact
-        full-name="Suzyta"
-       phone-number="11111"
-       email-address="sonita@hotmail.ca"></friend-contact>
+      <!-- we use v-bind with boolean, no string value as any other html attribute and vbind allow make component more dynamic -->     
     </ul>
   </section>
 </template>
@@ -28,16 +27,25 @@ export default {
           name: "Barbara",
           lastname: "Cam",
           email: "cam@yahoo.com",
+          isFavorite: true,
         },
         {
-          id: "Glady",
-          name: "Gladys",
-          lastname: "Perez",
-          email: "glady@hotmail.com",
+          id: "Gordi",
+          name: "Sam",
+          lastname: "Bid",
+          email: "sammy@hotmail.com",
+          isFavorite: false,
         },
       ],
     };
   },
+  methods:{
+    toggleFavoriteStatus(friendId){
+        const identifiedFriend = this.friends.find(friend=>friend.id === friendId );
+        // find a friend where friend.id is === friendId 
+        identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
+    }
+  }
 };
 </script>
 
