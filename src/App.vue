@@ -3,16 +3,20 @@
     <header>
       <h1>My friends</h1>
     </header>
+    <new-friend @add-contact="addContact"></new-friend>
     <ul>
       <friend-contact
-      v-for="friend in friends" :key="friend.id" :id="friend.id"
-       :full-name="friend.name"
-       :phone-number="friend.phone"
-       :email-address="friend.email"
-       :is-favorite="friend.isFavorite"
-       @toggle-favorite="toggleFavoriteStatus"      
+        v-for="friend in friends"
+        :key="friend.id"
+        :id="friend.id"
+        :full-name="friend.name"
+        :phone-number="friend.phone"
+        :email-address="friend.email"
+        :is-favorite="friend.isFavorite"
+        @toggle-favorite="toggleFavoriteStatus"
+        @delete-friend="deleteContact"
       ></friend-contact>
-      <!-- we use v-bind with boolean, no string value as any other html attribute and vbind allow make component more dynamic -->     
+      <!-- we use v-bind with boolean, no string value as any other html attribute and vbind allow make component more dynamic -->
     </ul>
   </section>
 </template>
@@ -39,13 +43,29 @@ export default {
       ],
     };
   },
-  methods:{
-    toggleFavoriteStatus(friendId){
-        const identifiedFriend = this.friends.find(friend=>friend.id === friendId );
-        // find a friend where friend.id is === friendId 
-        identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
-    }
-  }
+  methods: {
+    toggleFavoriteStatus(friendId) {
+      const identifiedFriend = this.friends.find(
+        (friend) => friend.id === friendId
+      );
+      // find a friend where friend.id is === friendId
+      identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
+    },
+    addContact(name, phone, email) {
+      const newFriendContact = {
+        id: new Date().toISOString(),
+        // property name have to be like the data, the second come from the ()
+        name: name,
+        phone: phone,
+        email: email,
+        isFavorite: false,
+      };
+      this.friends.push(newFriendContact);
+    },
+    deleteContact(friendId) {
+      this.friends = this.friends.filter((friend) => friend.id !== friendId);
+    },
+  },
 };
 </script>
 
@@ -55,7 +75,7 @@ export default {
 }
 
 html {
-  font-family: 'Jost', sans-serif;
+  font-family: "Jost", sans-serif;
 }
 
 body {
@@ -80,7 +100,8 @@ header {
   list-style: none;
 }
 
-#app li {
+#app li,
+#app form {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin: 1rem auto;
   border-radius: 10px;
@@ -112,5 +133,18 @@ header {
   background-color: #ec3169;
   border-color: #ec3169;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+}
+#app input {
+  font: inherit;
+  padding: 0.15rem;
+}
+#app label {
+  font-weight: bold;
+  margin-right: 1rem;
+  width: 7rem;
+  display: inline-block;
+}
+#app form div {
+  margin: 1rem 0;
 }
 </style>
